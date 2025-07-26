@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:loyalty_app/viewmodels/auth_viewmodel.dart';
+import 'package:loyalty_app/viewmodels/reward_viewmodel.dart';
 import 'package:loyalty_app/views/home_page.dart';
 import 'package:loyalty_app/views/login_page.dart';
+import 'package:loyalty_app/views/reward/reward_detail_page.dart';
 import 'package:loyalty_app/views/utils/themes/app_theme.dart';
 import 'package:provider/provider.dart';
 
@@ -15,7 +17,10 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
-      providers: [ChangeNotifierProvider(create: (_) => AuthViewModel())],
+      providers: [
+        ChangeNotifierProvider(create: (_) => AuthViewModel()),
+        ChangeNotifierProvider(create: (_) => RewardViewModel()),
+      ],
       child: MaterialApp(
         title: 'Loyalty Demo App',
         debugShowCheckedModeBanner: false,
@@ -30,7 +35,11 @@ class MyApp extends StatelessWidget {
             }
           },
         ),
-        routes: {'/login': (context) => const LoginPage()},
+        routes: {
+          '/login': (context) => const LoginPage(),
+          '/home': (context) => const HomePage(),
+          '/rewardDetail': (context) => const RewardDetailPage(),
+        },
       ),
     );
   }
