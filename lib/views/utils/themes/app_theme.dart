@@ -3,28 +3,28 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:loyalty_app/views/utils/themes/color.dart';
 
 final ThemeData appTheme = ThemeData(
-  useMaterial3: true,
   primaryColor: AppColors.primaryColor,
   scaffoldBackgroundColor: AppColors.backgroundColor,
   visualDensity: VisualDensity.adaptivePlatformDensity,
   fontFamily: GoogleFonts.ibmPlexSansThai().fontFamily,
   textTheme: const TextTheme(
-    headlineMedium: TextStyle(
-      fontSize: 36,
-      fontWeight: FontWeight.bold,
-      color: AppColors.primaryTextColor,
-    ),
-    titleMedium: TextStyle(
-      fontSize: 20,
-      fontWeight: FontWeight.w600,
-      color: AppColors.primaryTextColor,
-    ),
-    bodyMedium: TextStyle(fontSize: 16, color: AppColors.primaryTextColor),
+    headlineMedium: TextStyle(fontSize: 36, fontWeight: FontWeight.bold),
+    titleLarge: TextStyle(fontSize: 28, fontWeight: FontWeight.w600),
+    titleMedium: TextStyle(fontSize: 24, fontWeight: FontWeight.w600),
+    titleSmall: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
+    bodyMedium: TextStyle(fontSize: 16),
+    bodySmall: TextStyle(fontSize: 14),
   ),
-  appBarTheme: const AppBarTheme(
+  appBarTheme: AppBarTheme(
     backgroundColor: AppColors.primaryColor,
     foregroundColor: Colors.white,
     elevation: 4,
+    titleTextStyle: TextStyle(
+      fontSize: 20,
+      fontWeight: FontWeight.w600,
+      fontFamily: GoogleFonts.ibmPlexSansThai().fontFamily,
+      color: AppColors.whiteColor,
+    ),
   ),
   inputDecorationTheme: InputDecorationTheme(
     border: OutlineInputBorder(
@@ -49,13 +49,40 @@ final ThemeData appTheme = ThemeData(
       horizontal: 20.0,
     ),
   ),
+  bottomNavigationBarTheme: BottomNavigationBarThemeData(
+    backgroundColor: AppColors.whiteColor,
+    selectedItemColor: AppColors.primaryColor,
+    unselectedItemColor: AppColors.greyColor,
+    selectedLabelStyle: const TextStyle(
+      fontSize: 14,
+      fontWeight: FontWeight.w600,
+      color: AppColors.primaryTextColor,
+    ),
+    unselectedLabelStyle: const TextStyle(
+      fontSize: 14,
+      color: AppColors.greyColor,
+    ),
+  ),
   elevatedButtonTheme: ElevatedButtonThemeData(
     style: ElevatedButton.styleFrom(
       backgroundColor: AppColors.primaryColor,
       foregroundColor: AppColors.whiteColor,
+      disabledBackgroundColor: AppColors.greyColor.withValues(alpha: 0.5),
+      disabledForegroundColor: AppColors.whiteColor.withValues(alpha: 0.7),
       padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 25),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
       elevation: 0,
+      minimumSize: const Size(double.infinity, 50),
+      textStyle: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+    ),
+  ),
+  outlinedButtonTheme: OutlinedButtonThemeData(
+    style: OutlinedButton.styleFrom(
+      foregroundColor: AppColors.primaryColor,
+      disabledForegroundColor: AppColors.greyColor.withValues(alpha: 0.7),
+      side: BorderSide(color: AppColors.primaryColor, width: 2.0),
+      padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 25),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
       minimumSize: const Size(double.infinity, 50),
       textStyle: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
     ),

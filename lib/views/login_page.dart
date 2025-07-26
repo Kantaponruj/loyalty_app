@@ -72,7 +72,7 @@ class _LoginPageState extends State<LoginPage> {
                   const SizedBox(height: 60),
 
                   // Login Button
-                  ButtonWidgte(
+                  ButtonWidget(
                     text: 'Login',
                     isLoading: authViewModel.isLoading,
                     onPressed: () async {
@@ -80,6 +80,7 @@ class _LoginPageState extends State<LoginPage> {
                         _emailController.text,
                         _passwordController.text,
                       );
+
                       if (authViewModel.isAuthenticated) {
                         // If authenticated, navigate to the home page
                         navigate.pushReplacementNamed('/home');
