@@ -4,14 +4,9 @@ import 'package:loyalty_app/views/widgets/app_bar_widget.dart';
 import 'package:loyalty_app/views/widgets/reward_list_widget.dart';
 import 'package:provider/provider.dart';
 
-class RewardPage extends StatefulWidget {
+class RewardPage extends StatelessWidget {
   const RewardPage({super.key});
 
-  @override
-  State<RewardPage> createState() => _RewardPageState();
-}
-
-class _RewardPageState extends State<RewardPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

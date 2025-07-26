@@ -67,7 +67,7 @@ class _LoginPageState extends State<LoginPage> {
                   TextFormFieldWidget(
                     controller: _passwordController,
                     prefixIcon: Icons.lock,
-                    hintText: 'Enter your password',
+                    hintText: 'Password',
                   ),
 
                   const SizedBox(height: 60),
@@ -88,10 +88,14 @@ class _LoginPageState extends State<LoginPage> {
                       );
 
                       if (authViewModel.isAuthenticated) {
-                        // If authenticated, fetch reward then navigate to the home page
+                        // Wait for rewards to finish loading before navigating
                         await rewardViewModel.fetchRewards();
 
-                        navigate.pushReplacementNamed('/home');
+                        // Ensure loading is finished before navigating
+                        if (!authViewModel.isLoading &&
+                            !rewardViewModel.isLoading) {
+                          navigate.pushReplacementNamed('/home');
+                        }
                       }
                     },
                   ),

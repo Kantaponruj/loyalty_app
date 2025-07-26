@@ -10,11 +10,12 @@ class AuthService {
   Future<User?> login(String email, String password) async {
     await Future.delayed(const Duration(seconds: 2));
 
-    // final user = _users.firstWhere(
-    //   (u) => u.email == email && password == '11111111',
-    //   orElse: () => throw Exception('Invalid credentials'),
-    // );
-    return User(id: 'User1', name: 'Smile Challenge', email: 'john@doe.com');
+    final user = _users.firstWhere(
+      (u) => u.email == email && password == '11111111',
+      orElse: () => throw Exception('Invalid credentials'),
+    );
+
+    return user;
   }
 
   Future<void> logout() async {

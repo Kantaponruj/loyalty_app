@@ -47,7 +47,7 @@ class RewardCardWidget extends StatelessWidget {
               ],
             ),
           ),
-          SizedBox(height: 8.0),
+          SizedBox(height: 16.0),
           Flexible(
             flex: 1,
             child: Column(
@@ -61,9 +61,20 @@ class RewardCardWidget extends StatelessWidget {
                   softWrap: true,
                   overflow: TextOverflow.ellipsis,
                 ),
-                Text(
-                  '${pointFormat(itemRewardPoints)} Points',
-                  style: Theme.of(context).textTheme.bodyMedium,
+                RichText(
+                  text: TextSpan(
+                    text: pointFormat(itemRewardPoints),
+                    style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                      fontWeight: FontWeight.bold,
+                      color: Theme.of(context).primaryColor,
+                    ),
+                    children: [
+                      TextSpan(
+                        text: ' Points',
+                        style: Theme.of(context).textTheme.bodyMedium!,
+                      ),
+                    ],
+                  ),
                 ),
               ],
             ),

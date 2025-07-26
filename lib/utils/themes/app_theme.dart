@@ -16,14 +16,15 @@ final ThemeData appTheme = ThemeData(
     bodySmall: TextStyle(fontSize: 14),
   ),
   appBarTheme: AppBarTheme(
-    backgroundColor: AppColors.primaryColor,
-    foregroundColor: Colors.white,
+    surfaceTintColor: AppColors.whiteColor,
+    backgroundColor: AppColors.whiteColor,
+    foregroundColor: AppColors.primaryTextColor,
     elevation: 4,
     titleTextStyle: TextStyle(
       fontSize: 20,
       fontWeight: FontWeight.w600,
       fontFamily: GoogleFonts.ibmPlexSansThai().fontFamily,
-      color: AppColors.whiteColor,
+      color: AppColors.primaryTextColor,
     ),
   ),
   inputDecorationTheme: InputDecorationTheme(

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:loyalty_app/utils/themes/color.dart';
 import 'package:loyalty_app/viewmodels/auth_viewmodel.dart';
 import 'package:loyalty_app/viewmodels/reward_viewmodel.dart';
 import 'package:provider/provider.dart';
@@ -7,7 +8,7 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
   const AppBarWidget({super.key});
 
   @override
-  Size get preferredSize => const Size.fromHeight(80);
+  Size get preferredSize => const Size.fromHeight(100);
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +16,7 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
 
     return AppBar(
       centerTitle: false,
-      toolbarHeight: 80,
+      toolbarHeight: 100,
       title: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
@@ -33,12 +34,29 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
             SizedBox(height: 8),
             Consumer<RewardViewModel>(
               builder: (context, rewardViewModel, child) {
-                return Text('${rewardViewModel.totalPoints} Points');
+                return RichText(
+                  text: TextSpan(
+                    text: rewardViewModel.isLoading
+                        ? "0"
+                        : rewardViewModel.totalPoints,
+                    style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                      fontWeight: FontWeight.bold,
+                      color: Theme.of(context).primaryColor,
+                    ),
+                    children: [
+                      TextSpan(
+                        text: ' Points',
+                        style: Theme.of(context).textTheme.titleSmall!,
+                      ),
+                    ],
+                  ),
+                );
               },
             ),
           ],
         ),
       ),
+      actionsPadding: EdgeInsets.only(right: 16.0),
       actions: [
         Consumer<AuthViewModel>(
           builder: (context, authViewModel, child) {
@@ -49,16 +67,7 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
                       await authViewModel.logout();
                       navigate.pushReplacementNamed('/login');
                     },
-              icon: authViewModel.isLoading
-                  ? const SizedBox(
-                      width: 16,
-                      height: 16,
-                      child: CircularProgressIndicator(
-                        color: Colors.white,
-                        strokeWidth: 2,
-                      ),
-                    )
-                  : const Icon(Icons.logout, color: Colors.white),
+              icon: const Icon(Icons.logout, color: AppColors.primaryColor),
             );
           },
         ),

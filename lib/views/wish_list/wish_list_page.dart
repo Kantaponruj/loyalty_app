@@ -13,35 +13,44 @@ class WishListPage extends StatefulWidget {
 class _WishListPageState extends State<WishListPage> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          'Wish List',
-          style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-        ),
-        centerTitle: false,
-      ),
-      body: Consumer<RewardViewModel>(
-        builder: (context, rewardViewModel, child) {
-          // If the rewards are still loading, show a loading indicator
-          if (rewardViewModel.isLoading) {
-            return const Center(child: CircularProgressIndicator());
-            // If there are no rewards available
-          } else if (rewardViewModel.favoriteRewards.isEmpty) {
-            return const Center(
+    return SafeArea(
+      child: Scaffold(
+        body: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(16.0),
               child: Text(
-                'No items in your wish list.',
-                style: TextStyle(fontSize: 18, color: Colors.grey),
+                'Wish List',
+                style: Theme.of(context).textTheme.headlineMedium,
               ),
-            );
-            // Display the rewards in a grid view
-          } else {
-            return RewardListWidget(
-              items: rewardViewModel.favoriteRewards,
-              rewardViewModel: rewardViewModel,
-            );
-          }
-        },
+            ),
+            Expanded(
+              child: Consumer<RewardViewModel>(
+                builder: (context, rewardViewModel, child) {
+                  // If the rewards are still loading, show a loading indicator
+                  if (rewardViewModel.isLoading) {
+                    return const Center(child: CircularProgressIndicator());
+                    // If there are no rewards available
+                  } else if (rewardViewModel.favoriteRewards.isEmpty) {
+                    return const Center(
+                      child: Text(
+                        'No items in your wish list.',
+                        style: TextStyle(fontSize: 18, color: Colors.grey),
+                      ),
+                    );
+                    // Display the rewards in a grid view
+                  } else {
+                    return RewardListWidget(
+                      items: rewardViewModel.favoriteRewards,
+                      rewardViewModel: rewardViewModel,
+                    );
+                  }
+                },
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

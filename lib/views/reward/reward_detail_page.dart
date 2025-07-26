@@ -21,7 +21,14 @@ class _RewardDetailPageState extends State<RewardDetailPage> {
         final currentReward = rewardViewModel.currentReward;
 
         return Scaffold(
-          appBar: AppBar(),
+          appBar: AppBar(
+            toolbarHeight: 80,
+            centerTitle: false,
+            title: Text(
+              currentReward?.name ?? 'Reward Detail',
+              style: Theme.of(context).textTheme.titleMedium,
+            ),
+          ),
           body: currentReward == null
               ? SizedBox.shrink()
               : SingleChildScrollView(
@@ -63,29 +70,57 @@ class _RewardDetailPageState extends State<RewardDetailPage> {
                   ),
                 ),
           bottomNavigationBar: Container(
-            margin: const EdgeInsets.fromLTRB(16.0, 16, 16.0, 32.0),
+            margin: const EdgeInsets.fromLTRB(24.0, 24, 24.0, 32.0),
             color: AppColors.whiteColor,
-            child: ButtonWidget(
-              text: 'Redeem',
-              isDisabled: !rewardViewModel.isRewardAvailable(currentReward!),
-              onPressed: () => showDialog<String>(
-                context: context,
-                builder: (BuildContext context) {
-                  return _buildConfirmationDialog(
-                    onConfirm: () async {
-                      rewardViewModel.redeemReward(currentReward);
-                      Navigator.of(context).popUntil((route) => route.isFirst);
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          content: Text(
-                            'You have redeemed ${currentReward.name} successfully!',
-                          ),
-                        ),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      'Available Points: ',
+                      style: Theme.of(context).textTheme.titleSmall,
+                    ),
+                    Text(
+                      rewardViewModel.totalPoints,
+                      style: Theme.of(context).textTheme.titleSmall,
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 8.0),
+                ButtonWidget(
+                  text: 'Redeem',
+                  isDisabled: !rewardViewModel.isRewardAvailable(
+                    currentReward!,
+                  ),
+                  onPressed: () => showDialog<String>(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return _buildConfirmationDialog(
+                        totalPoints: rewardViewModel.totalPoints,
+                        redeemPoint: pointFormat(currentReward.rewardPoints),
+                        onConfirm: () async {
+                          rewardViewModel.redeemReward(currentReward);
+                          // Close the dialog and navigate back
+                          Navigator.of(
+                            context,
+                          ).popUntil((route) => route.isFirst);
+                          // Show success message
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text(
+                                'You have redeemed ${currentReward.name} successfully!',
+                              ),
+                            ),
+                          );
+                        },
                       );
                     },
-                  );
-                },
-              ),
+                  ),
+                ),
+              ],
             ),
           ),
         );
@@ -93,17 +128,45 @@ class _RewardDetailPageState extends State<RewardDetailPage> {
     );
   }
 
-  Widget _buildConfirmationDialog({VoidCallback? onConfirm}) {
+  Widget _buildConfirmationDialog({
+    VoidCallback? onConfirm,
+    required String totalPoints,
+    required String redeemPoint,
+  }) {
     return AlertDialog(
+      title: const Text('Are you sure?'),
       insetPadding: const EdgeInsets.all(16.0),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
       contentPadding: EdgeInsets.all(32.0),
       content: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
         children: [
           Text(
             'Confirm Reward Redemption',
             style: Theme.of(context).textTheme.titleMedium,
+          ),
+          const SizedBox(height: 16.0),
+          RichText(
+            text: TextSpan(
+              text: 'Current: ',
+              style: Theme.of(context).textTheme.titleSmall!,
+              children: [
+                TextSpan(text: totalPoints),
+                TextSpan(text: ' Points'),
+              ],
+            ),
+          ),
+          const SizedBox(height: 16.0),
+          RichText(
+            text: TextSpan(
+              text: 'Redeem: ',
+              style: Theme.of(context).textTheme.titleSmall!,
+              children: [
+                TextSpan(text: redeemPoint),
+                TextSpan(text: ' Points'),
+              ],
+            ),
           ),
           const SizedBox(height: 32.0),
           Row(
@@ -148,8 +211,24 @@ class _RewardDetailPageState extends State<RewardDetailPage> {
               Text(title, style: Theme.of(context).textTheme.titleLarge),
               const SizedBox(height: 16.0),
               Text(
-                '${pointFormat(point)} Points',
-                style: Theme.of(context).textTheme.titleSmall,
+                "Redeem amount",
+                style: Theme.of(context).textTheme.titleMedium,
+              ),
+              const SizedBox(height: 8.0),
+              RichText(
+                text: TextSpan(
+                  text: pointFormat(point),
+                  style: Theme.of(context).textTheme.titleLarge!.copyWith(
+                    fontWeight: FontWeight.bold,
+                    color: Theme.of(context).primaryColor,
+                  ),
+                  children: [
+                    TextSpan(
+                      text: ' Points',
+                      style: Theme.of(context).textTheme.titleSmall!,
+                    ),
+                  ],
+                ),
               ),
             ],
           ),
