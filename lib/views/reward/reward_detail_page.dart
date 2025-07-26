@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:loyalty_app/viewmodels/reward_viewmodel.dart';
 import 'package:loyalty_app/views/reward/widget/favorite_button_widget.dart';
-import 'package:loyalty_app/views/utils/format.dart';
-import 'package:loyalty_app/views/utils/themes/color.dart';
+import 'package:loyalty_app/utils/format.dart';
+import 'package:loyalty_app/utils/themes/color.dart';
 import 'package:loyalty_app/views/widgets/button_widget.dart';
 import 'package:provider/provider.dart';
 

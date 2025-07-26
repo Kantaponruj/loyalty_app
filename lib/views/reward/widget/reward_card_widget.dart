@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:loyalty_app/views/reward/widget/favorite_button_widget.dart';
-import 'package:loyalty_app/views/utils/format.dart';
+import 'package:loyalty_app/utils/format.dart';
 
 class RewardCardWidget extends StatelessWidget {
   final String itemName;

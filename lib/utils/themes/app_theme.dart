@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:loyalty_app/views/utils/themes/color.dart';
+import 'package:loyalty_app/utils/themes/color.dart';
 
 final ThemeData appTheme = ThemeData(
   primaryColor: AppColors.primaryColor,

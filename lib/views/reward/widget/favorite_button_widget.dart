@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:loyalty_app/views/utils/themes/color.dart';
+import 'package:loyalty_app/utils/themes/color.dart';
 
 class FavoriteButtonWidget extends StatelessWidget {
   final bool isSelected;

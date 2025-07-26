@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:loyalty_app/models/reward.dart';
 import 'package:loyalty_app/services/reward_service.dart';
-import 'package:loyalty_app/views/utils/format.dart';
+import 'package:loyalty_app/utils/format.dart';
 
 class RewardViewModel extends ChangeNotifier {
   final RewardService _rewardService = RewardService();

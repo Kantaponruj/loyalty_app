@@ -4,7 +4,7 @@ import 'package:loyalty_app/viewmodels/reward_viewmodel.dart';
 import 'package:loyalty_app/views/home_page.dart';
 import 'package:loyalty_app/views/login_page.dart';
 import 'package:loyalty_app/views/reward/reward_detail_page.dart';
-import 'package:loyalty_app/views/utils/themes/app_theme.dart';
+import 'package:loyalty_app/utils/themes/app_theme.dart';
 import 'package:provider/provider.dart';
 
 void main() {
