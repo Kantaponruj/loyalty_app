@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:loyalty_app/viewmodels/auth_viewmodel.dart';
+import 'package:loyalty_app/viewmodels/reward_viewmodel.dart';
 import 'package:loyalty_app/views/widgets/button_widget.dart';
 import 'package:loyalty_app/views/widgets/text_field_widget.dart';
 import 'package:provider/provider.dart';
@@ -76,13 +77,20 @@ class _LoginPageState extends State<LoginPage> {
                     text: 'Login',
                     isLoading: authViewModel.isLoading,
                     onPressed: () async {
+                      final rewardViewModel = Provider.of<RewardViewModel>(
+                        context,
+                        listen: false,
+                      );
+
                       await authViewModel.login(
                         _emailController.text,
                         _passwordController.text,
                       );
 
                       if (authViewModel.isAuthenticated) {
-                        // If authenticated, navigate to the home page
+                        // If authenticated, fetch reward then navigate to the home page
+                        await rewardViewModel.fetchRewards();
+
                         navigate.pushReplacementNamed('/home');
                       }
                     },
