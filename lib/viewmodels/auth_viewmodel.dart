@@ -13,8 +13,12 @@ class AuthViewModel extends ChangeNotifier {
   bool get isLoading => _isLoading;
   String? get errorMessage => _errorMessage;
 
+  set isLoading(bool value) {
+    _isLoading = value;
+    notifyListeners();
+  }
+
   Future<void> login(String email, String password) async {
-    _isLoading = true;
     _errorMessage = null;
     notifyListeners();
 
@@ -25,13 +29,11 @@ class AuthViewModel extends ChangeNotifier {
       _errorMessage = e.toString().replaceFirst('Exception: ', '');
       _currentUser = null;
     } finally {
-      _isLoading = false;
       notifyListeners();
     }
   }
 
   Future<void> logout() async {
-    _isLoading = true;
     notifyListeners();
 
     try {
@@ -41,7 +43,6 @@ class AuthViewModel extends ChangeNotifier {
     } catch (e) {
       _errorMessage = 'Logout failed: ${e.toString()}';
     } finally {
-      _isLoading = false;
       notifyListeners();
     }
   }

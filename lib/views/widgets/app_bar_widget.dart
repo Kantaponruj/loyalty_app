@@ -64,8 +64,12 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
               onPressed: authViewModel.isLoading
                   ? null
                   : () async {
+                      authViewModel.isLoading = true;
+
                       await authViewModel.logout();
                       navigate.pushReplacementNamed('/login');
+
+                      authViewModel.isLoading = false;
                     },
               icon: const Icon(Icons.logout, color: AppColors.primaryColor),
             );

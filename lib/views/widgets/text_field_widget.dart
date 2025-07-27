@@ -6,6 +6,10 @@ class TextFormFieldWidget extends StatelessWidget {
   final String? hintText;
   final TextInputType? keyboardType;
   final IconData? prefixIcon;
+  final String? Function(String?)? validator;
+  final bool obscureText;
+  final void Function(String?)? onSaved;
+  final Widget? suffixIcon;
 
   const TextFormFieldWidget({
     super.key,
@@ -14,6 +18,10 @@ class TextFormFieldWidget extends StatelessWidget {
     this.hintText,
     this.keyboardType,
     this.prefixIcon,
+    this.validator,
+    this.obscureText = false,
+    this.onSaved,
+    this.suffixIcon,
   });
 
   @override
@@ -30,15 +38,17 @@ class TextFormFieldWidget extends StatelessWidget {
         const SizedBox(height: 10),
         TextFormField(
           controller: controller,
+          autovalidateMode: AutovalidateMode.onUnfocus,
           keyboardType: keyboardType,
           decoration: InputDecoration(
+            suffixIcon: suffixIcon,
             hintText: hintText,
             prefixIcon: prefixIcon != null ? Icon(prefixIcon) : null,
           ),
           onTapOutside: (event) => FocusScope.of(context).unfocus(),
-          validator: (value) => value == null || value.isEmpty
-              ? 'This field cannot be empty'
-              : null,
+          validator: validator,
+          obscureText: obscureText,
+          onSaved: onSaved,
         ),
       ],
     );

@@ -19,7 +19,10 @@ class _WishListPageState extends State<WishListPage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Padding(
-              padding: const EdgeInsets.all(16.0),
+              padding: const EdgeInsets.symmetric(
+                vertical: 16.0,
+                horizontal: 32.0,
+              ),
               child: Text(
                 'Wish List',
                 style: Theme.of(context).textTheme.headlineMedium,
