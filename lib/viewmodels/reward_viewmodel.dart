@@ -96,4 +96,13 @@ class RewardViewModel extends ChangeNotifier {
     _totalPoints = _rewards.fold(0, (sum, reward) => sum + reward.rewardPoints);
     notifyListeners();
   }
+
+  void clearAllRewardData() {
+    _rewards.clear();
+    _totalPoints = 0;
+    _currentReward = null;
+    _favoriteRewards.clear();
+    _isLoading = false;
+    notifyListeners();
+  }
 }

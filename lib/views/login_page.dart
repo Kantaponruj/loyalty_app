@@ -139,13 +139,11 @@ class _LoginPageState extends State<LoginPage> {
                         );
 
                         if (authViewModel.isAuthenticated) {
-                          debugPrint('Login successful');
                           // Wait for rewards to finish loading before navigating
                           await rewardViewModel.fetchRewards();
 
                           // Ensure loading is finished before navigating
                           if (!rewardViewModel.isLoading) {
-                            debugPrint('Navigating to home page');
                             navigate.pushReplacementNamed('/home');
                           }
                         }

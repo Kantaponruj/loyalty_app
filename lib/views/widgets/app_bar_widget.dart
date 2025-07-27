@@ -64,9 +64,16 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
               onPressed: authViewModel.isLoading
                   ? null
                   : () async {
+                      final rewardViewModel = Provider.of<RewardViewModel>(
+                        context,
+                        listen: false,
+                      );
                       authViewModel.isLoading = true;
 
                       await authViewModel.logout();
+                      // Clear all data when logging out
+                      rewardViewModel.clearAllRewardData();
+
                       navigate.pushReplacementNamed('/login');
 
                       authViewModel.isLoading = false;
