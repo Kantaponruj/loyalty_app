@@ -10,12 +10,19 @@ class RewardViewModel extends ChangeNotifier {
   bool _isLoading = false;
   Reward? _currentReward;
   final List<Reward> _favoriteRewards = [];
+  bool _isSortedLowest = false;
 
   List<Reward> get rewards => _rewards;
   String get totalPoints => pointFormat(_totalPoints);
   bool get isLoading => _isLoading;
   Reward? get currentReward => _currentReward;
   List<Reward> get favoriteRewards => _favoriteRewards;
+  bool get isSortedLowest => _isSortedLowest;
+
+  set isSortedLowest(bool value) {
+    _isSortedLowest = value;
+    notifyListeners();
+  }
 
   Future<void> fetchRewards() async {
     _isLoading = true;
@@ -94,6 +101,17 @@ class RewardViewModel extends ChangeNotifier {
 
   void _calculateTotalPoints() {
     _totalPoints = _rewards.fold(0, (sum, reward) => sum + reward.rewardPoints);
+    notifyListeners();
+  }
+
+  void sortReward() {
+    if (_isSortedLowest) {
+      _rewards.sort((a, b) => a.rewardPoints.compareTo(b.rewardPoints));
+      _isSortedLowest = false;
+    } else {
+      _rewards.sort((a, b) => b.rewardPoints.compareTo(a.rewardPoints));
+      _isSortedLowest = true;
+    }
     notifyListeners();
   }
 
